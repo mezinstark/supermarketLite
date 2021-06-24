@@ -141,7 +141,7 @@ public class LoginPage extends javax.swing.JFrame {
     private void pwd_feildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwd_feildActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pwd_feildActionPerformed
-
+public String name="";
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Feild variables goes here.
          // Declaring required variables
@@ -151,12 +151,13 @@ public class LoginPage extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             Statement st= con.createStatement();
-            ResultSet rs=st.executeQuery("SELECT  `UserName`, `Password` FROM `counterAdmin` WHERE UserName= '"+un+"'");
+            ResultSet rs=st.executeQuery("SELECT  `UserName`, `Password`, `Name` FROM `counterAdmin` WHERE UserName= '"+un+"'");
             rs.next();
             String pwd=rs.getString(2);
             if(pw.equals(pwd)){
                 JOptionPane.showMessageDialog(null,"Log IN Successful");
-                new productEntry().setVisible(true);
+                this.name=rs.getString(3);
+                new productMenu().setVisible(true);
             }
             else
                 JOptionPane.showMessageDialog(null,"Password Is Wrong");
@@ -166,7 +167,9 @@ public class LoginPage extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    public String gName(){
+        return this.name;
+    }
     /**
      * @param args the command line arguments
      */
